@@ -22,6 +22,39 @@ const PORT = process.env.PORT || 3000;
 
 const USERS_FILE = "./storage/users.json";
 
+//Créer une fonction pour lire l'utilisateur
+
+function getUserSettings(device_id){
+
+    if(!fs.existsSync(USERS_FILE)){
+        return {};
+    }
+
+
+    const users = JSON.parse(
+
+        fs.readFileSync(USERS_FILE)
+
+    );
+
+
+    const user = users.find(
+
+        u => u.device_id === device_id
+
+    );
+
+
+    if(!user){
+
+        return {};
+
+    }
+
+
+    return user.settings || {};
+
+}
 
 
 /*
@@ -67,29 +100,67 @@ app.get("/", (req, res) => {
     Installation LaMetric
 */
 
-app.post("/install", (req, res) => {
+app.post("/install",(req,res)=>{
 
 
-    let users = [];
+    let users=[];
 
 
-    if (fs.existsSync(USERS_FILE)) {
+
+    if(fs.existsSync(USERS_FILE)){
+
 
         users = JSON.parse(
+
             fs.readFileSync(USERS_FILE)
+
         );
+
 
     }
 
 
 
-    users.push({
+    const existing = users.find(
 
-        device_id: req.body.id,
+        u => u.device_id === req.body.id
 
-        installed_at: new Date().toISOString()
+    );
 
-    });
+
+
+    if(!existing){
+
+
+        users.push({
+
+            device_id:req.body.id,
+
+
+            settings:{
+
+
+                adjustment:0,
+
+                method:"3",
+
+                dayChange:"midnight",
+
+                city:"",
+
+                country:""
+
+
+            },
+
+
+            installed_at:new Date().toISOString()
+
+
+        });
+
+
+    }
 
 
 
@@ -97,7 +168,7 @@ app.post("/install", (req, res) => {
 
         USERS_FILE,
 
-        JSON.stringify(users, null, 2)
+        JSON.stringify(users,null,2)
 
     );
 
@@ -105,15 +176,13 @@ app.post("/install", (req, res) => {
 
     res.json({
 
-        success: true
+        success:true
 
     });
 
 
+
 });
-
-
-
 
 
 /*
@@ -164,19 +233,31 @@ app.post("/uninstall", (req, res) => {
 });
 
 
-
-
-
-
-
 /*
     Endpoint LaMetric
 */
 
-app.get("/hijri", async (req, res) => {
+app.get("/hijri", async(req,res)=>{
 
 
-    try {
+    try{
+
+
+        const device_id = req.query.device_id;
+
+        const settings = getUserSettings(device_id);
+
+
+        console.log(
+            "Device :",
+            device_id
+        );
+
+
+        console.log(
+            "Settings :",
+            settings
+        );
 
 
         const response = await axios.get(
@@ -186,9 +267,7 @@ app.get("/hijri", async (req, res) => {
         );
 
 
-
         const hijri = response.data.data.hijri;
-
 
 
         const cleanMonth = normalizeText(
@@ -198,27 +277,30 @@ app.get("/hijri", async (req, res) => {
         );
 
 
-
         res.json({
 
-            frames: [
+            frames:[
+
 
                 {
 
-                    icon: "18433",
+                    icon:"i18433",
 
                     text:
                     `${hijri.day} ${cleanMonth}`
 
                 },
+
+
                 {
 
-                    icon: "18433",
+                    icon:"i18433",
 
                     text:
-                    `n${hijri.year} AH`
+                    `${hijri.year} AH`
 
                 }
+
 
             ]
 
@@ -226,7 +308,10 @@ app.get("/hijri", async (req, res) => {
 
 
 
-    } catch (error) {
+    }
+
+
+    catch(error){
 
 
         console.log(error);
@@ -234,7 +319,7 @@ app.get("/hijri", async (req, res) => {
 
         res.status(500).json({
 
-            error: "Hijri API error"
+            error:"Hijri API error"
 
         });
 
@@ -243,9 +328,6 @@ app.get("/hijri", async (req, res) => {
 
 
 });
-
-
-
 
 
 app.listen(PORT, () => {

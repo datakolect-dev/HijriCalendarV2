@@ -5,7 +5,7 @@
   "author": "Aymen",
   "description": "Simple Hijri calendar display for LaMetric Time",
 
-  "homepage": "https://hijri-calendar.onrender.com",
+  "homepage": "https://hijricalendarv2.onrender.com",
 
   "app": {
     "fields": [
@@ -32,11 +32,11 @@
     }
   },
 
-  "installUrl": "https://hijri-calendar.onrender.com/install",
+  "installUrl": "https://hijricalendarv2.onrender.com/install",
 
-  "uninstallUrl": "https://hijri-calendar.onrender.com/uninstall",
+  "uninstallUrl": "https://hijricalendarv2.onrender.com/uninstall",
 
-  "url": "https://hijri-calendar.onrender.com/hijri",
+  "url": "https://hijricalendarv2.onrender.com/hijri",
 
   "settings": [
 
@@ -46,7 +46,6 @@
       "type": "number",
       "default": 0
     },
-
 
     {
       "name": "method",
@@ -107,7 +106,7 @@
       "default":""
     },
 
-
+    
     {
       "name":"country",
       "label":"Country",

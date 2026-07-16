@@ -1,6 +1,6 @@
 import express from "express";
 import fs from "fs";
-
+import {updateUser} from "../services/userService.js";
 
 const router = express.Router();
 
