@@ -1,0 +1,121 @@
+{
+  "packageName": "com.hijricalendar.app",
+  "name": "Hijri Calendar",
+  "version": "1.0.0",
+  "author": "Aymen",
+  "description": "Simple Hijri calendar display for LaMetric Time",
+
+  "homepage": "https://hijri-calendar.onrender.com",
+
+  "app": {
+    "fields": [
+      {
+        "name": "city",
+        "type": "text",
+        "default": ""
+      }
+    ]
+  },
+
+  "screens": {
+    "widget": {
+      "cycles": [
+        {
+          "frames": [
+            {
+              "icon": "6063",
+              "text": "{date}"
+            }
+          ]
+        }
+      ]
+    }
+  },
+
+  "installUrl": "https://hijri-calendar.onrender.com/install",
+
+  "uninstallUrl": "https://hijri-calendar.onrender.com/uninstall",
+
+  "url": "https://hijri-calendar.onrender.com/hijri",
+
+  "settings": [
+
+    {
+      "name": "adjustment",
+      "label": "Day Adjustment",
+      "type": "number",
+      "default": 0
+    },
+
+
+    {
+      "name": "method",
+      "label": "Calculation Method",
+      "type": "select",
+
+      "options": [
+        {
+          "value": "3",
+          "label": "Muslim World League"
+        },
+
+        {
+          "value": "2",
+          "label": "ISNA"
+        },
+
+        {
+          "value": "5",
+          "label": "Egyptian"
+        }
+      ],
+
+      "default": "3"
+    },
+
+
+    {
+      "name": "dayChange",
+      "label": "Hijri Day Start",
+
+      "type": "select",
+
+      "options":[
+
+        {
+          "value":"midnight",
+          "label":"00:00"
+        },
+
+        {
+          "value":"maghrib",
+          "label":"Maghrib"
+        }
+
+      ],
+
+      "default":"midnight"
+    },
+
+
+    {
+      "name":"city",
+      "label":"City",
+
+      "type":"text",
+
+      "default":""
+    },
+
+
+    {
+      "name":"country",
+      "label":"Country",
+
+      "type":"text",
+
+      "default":""
+    }
+
+  ]
+}
